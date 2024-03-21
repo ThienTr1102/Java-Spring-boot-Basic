@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice Detail</title>
+
+    <th:block th:replace="~{layout :: link-css}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{layout :: header}"></th:block>
+<!--Hiển thị nội dung-->
+<div class="container">
+    <div class="row">
+        <h1>Thông tin chi tiết đơn hàng</h1>
+    </div>
+
+    <!--Hóa đơn gồm 3 phần
+    1. Thông tin khách hàng
+    2. Danh sách sản phẩm mua
+    3. Thông tin tong của đơn hàng-->
+    <div class="row" style="margin-top:30px;justify-content: center;">
+        <h4>Thông tin khách hàng </h4>
+    </div>
+
+    <div class="row" style="margin-top:30px;justify-content: center;">
+        <div class="col-2">
+            <label>Mã đơn hàng: </label>
+        </div>
+        <div class="col-2">
+            <label th:text="${invoice.id}"></label>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:30px;justify-content: center;">
+        <div class="col-2">
+            <label>Username: </label>
+        </div>
+        <div class="col-2">
+            <label th:text="${invoice.user.username}"></label>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:30px;justify-content: center;">
+        <div class="col-2">
+            <label>Họ tên khách hàng: </label>
+        </div>
+        <div class="col-2">
+            <label th:text="${invoice.user.name}"></label>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:30px;justify-content: center;">
+        <div class="col-2">
+            <label>Email khách hàng: </label>
+        </div>
+        <div class="col-2">
+            <label th:text="${invoice.user.email}"></label>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:30px;justify-content: center;">
+        <div class="col-2">
+            <label>Ngày đặt hàng: </label>
+        </div>
+        <div class="col-2">
+            <label th:text="${invoice.invoiceDate}"></label>
+        </div>
+    </div>
+
+    <!-- 2. Danh sach san pham mua -->
+    <div class="row" style="margin-top:30px;">
+        <h4>Danh sách sản phẩm mua</h4>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Mã sách</th>
+            <th>Tựa đề sách</th>
+            <th>Số lượng mua</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${invoice.itemInvoices}">
+            <td th:text="${item.book.id}"></td>
+            <td th:text="${item.book.title}"></td>
+            <td th:text="${item.quantity}"></td>
+            <td th:text="${item.book.price}"></td>
+            <td th:text="${item.quantity*item.book.price}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+    <!-- Thông tin tổng kết -->
+    <div class="row"  style="margin-top:30px;justify-content: center;">
+        <div class="col-2">
+            <label>Tổng tiền sản phẩm: </label>
+        </div>
+        <div class="col-2">
+            <label th:text="${invoice.getPrice()}"></label>
+        </div>
+    </div>
+    <div class="row" style="margin-top:30px;justify-content: center;">
+        <div class="col-2">
+            <label>Giảm giá/chiết khấu: </label>
+        </div>
+        <div class="col-2">
+            <label>0</label>
+        </div>
+    </div>
+    <div class="row"style="margin-top:30px;justify-content: center;">
+        <div class="col-2">
+            <label>Tổng tiền thanh toán: </label>
+        </div>
+        <div class="col-2">
+            <label th:text="${invoice.getPrice()}"></label>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Book</title>
+  <th:block th:replace="~{layout :: link-css}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{layout :: header}"></th:block>
+<div class="container">
+  <h1>Edit Book</h1>
+  <!-- chu y dinh tuyen link de xu ly cho dung-->
+  <form th:action="@{~/books/edit}" th:object="${book}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <div class="col-6 mb-3">
+      <label class="form-label" for="title">Title: </label>
+      <input class="form-control" type="text" th:field="*{title}" id="title">
+    </div>
+    <div class="col-6 mb-3">
+      <label class="form-label" for="title">Author: </label>
+      <input class="form-control" type="text" th:field="*{author}" id="author">
+    </div>
+    <div class="col-6 mb-3">
+      <label class="form-label" for="title">Price: </label>
+      <input class="form-control" type="text" th:field="*{price}" id="price">
+    </div>
+    <!-- Hiển thị phần Category -->
+    <div class="col-6 mb-3">
+      <label class="form-label" for="category">Category:</label><span class="text-danger">*</span>
+      <!-- hiển thị combobox ra cho người dùng chọn category -->
+      <select class="form-control" id="category" name="category.id">
+        <!-- tự thêm option hiển thị thêm cho người dùng biết -->
+        <option value="">-- Select Category --</option>
+        <!-- Tiến hành lặp/for mảng categories được truyền từ controller qua để
+        hiển thị . Mỗi giá trị mảng được gán vào biến category và tạo ra
+        1 option cho người dùng lựa chọn.
+        Về mặt hiển thị name của category là trường text
+        Về mặt xử lý dữ liệu thì id của category là trường value-->
+        <option th:each="category : ${categories}" th:value="${category.id}"
+                th:text="${category.name}"
+                th:selected="${book.category.id} == ${category.id} ? true : false"></option>
+      </select>
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Save">
+  </form>
+  <br>
+  <a th:href="@{/books}">Back to List</a>
+</div>
+<th:block th:replace="~{layout :: footer}"></th:block>
+</body>
+</html>

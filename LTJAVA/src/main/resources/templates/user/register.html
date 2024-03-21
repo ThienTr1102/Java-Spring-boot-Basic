@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Sign up</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
+    <th:block th:replace="~{layout :: link-css}"></th:block>
+</head>
+<body>
+<!--<div class="row align-items-center" style="height: 100vh;">-->
+<!--    <form class="mx-auto col-10 col-md-8 col-lg-6" style="width: 500px;" action="/u ser/login" method="post" th:object="${user}">-->
+<!--        <h1 class="text-center">Login</h1>-->
+<!--        <div class="form-group mt-3">-->
+<!--            <label for="login_username">Username</label>-->
+<!--            <input type="text" class="form-control" id="login_username" th:field="*{username}">-->
+<!--        </div>-->
+<!--        <div class="form-group mt-3">-->
+<!--            <label for="login_password">Password</label>-->
+<!--            <input type="password" class="form-control" id="login_password" th:field="*{password}">-->
+<!--        </div>-->
+<!--        <div style="text-align: center;" th:if="${error}">-->
+<!--            <span th:text="${error}" style="color:red"></span>-->
+<!--        </div>-->
+<!--        <div style="text-align: center;" th:unless="${error}">-->
+<!--            <span th:text="${success}" style="color:red"></span>-->
+<!--        </div>-->
+<!--        <button type="submit" class="btn btn-primary mt-3">Login</button>-->
+<!--    </form>-->
+<!--</div>-->
+
+<th:block th:replace="~{layout :: header}"></th:block>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <h3 class="card-title text-center">Sign up</h3>
+            <form th:action="@{/register}" th:object="${user}" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Firstname:</label><span class="text-danger">*</span>
+                    <input type="text" class="form-control" th:field="*{name}" id="name">
+                    <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" th:field="*{email}" id="email">
+                    <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username:</label><span class="text-danger">*</span>
+                    <input type="text" class="form-control" id="username" th:field="*{username}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label><span class="text-danger">*</span>
+                    <input type="password" class="form-control" id="password" th:field="*{password}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-info">Sign up</button>
+                </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<th:block th:replace="~{layout :: footer}"></th:block>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
+    <th:block th:replace="~{layout :: link-css}"></th:block>
+</head>
+<body>
+<!--<div class="row align-items-center" style="height: 100vh;">-->
+<!--    <form class="mx-auto col-10 col-md-8 col-lg-6" style="width: 500px;" action="/u ser/login" method="post" th:object="${user}">-->
+<!--        <h1 class="text-center">Login</h1>-->
+<!--        <div class="form-group mt-3">-->
+<!--            <label for="login_username">Username</label>-->
+<!--            <input type="text" class="form-control" id="login_username" th:field="*{username}">-->
+<!--        </div>-->
+<!--        <div class="form-group mt-3">-->
+<!--            <label for="login_password">Password</label>-->
+<!--            <input type="password" class="form-control" id="login_password" th:field="*{password}">-->
+<!--        </div>-->
+<!--        <div style="text-align: center;" th:if="${error}">-->
+<!--            <span th:text="${error}" style="color:red"></span>-->
+<!--        </div>-->
+<!--        <div style="text-align: center;" th:unless="${error}">-->
+<!--            <span th:text="${success}" style="color:red"></span>-->
+<!--        </div>-->
+<!--        <button type="submit" class="btn btn-primary mt-3">Login</button>-->
+<!--    </form>-->
+<!--</div>-->
+
+<th:block th:replace="~{layout :: header}"></th:block>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <h3 class="card-title text-center">Login</h3>
+            <form th:action="@{/login}" method="post">
+                <fieldset>
+                    <legend>Please login</legend>
+                    <div th:if="${param.error}" class="alert alert-danger">
+                        Invalid username and password.
+                    </div>
+                    <div th:if="${param.logout}" class="alert alert-success">
+                        You have been logged out.
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username:</label>
+                        <input type="text" required class="form-control" id="username" name="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password:</label>
+                        <input type="password" required class="form-control" id="password" name="password">
+                    </div>
+                    <div class="mb-3">
+                        <input type="checkbox" name="remember-me" id="remember-me">
+                        <label for="remember-me">Remember me</label>
+                    </div>
+                    <div class="d-grid gap-2 form-action">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <a href="/oauth2/authorization/google"
+                           class="btn btn-outline-danger btn-floating m-1"
+                           role="button">
+                            Login with Google
+                        </a>
+                        <a class="text-primary text-center" href="/register">Don't have account? Sign up.</a>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<th:block th:replace="~{layout :: footer}"></th:block>
+</body>
+</html>
